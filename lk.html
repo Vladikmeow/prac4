@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NickyBike | Личный кабинет</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- NEW -->
+  <script src="https://acq-paymentform-integrationjs.t-static.ru/integration.js" onload="onPaymentIntegrationLoad()" async></script>
+  <script src="js/tbankpay.js"></script>
+  <!-- UP -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/stylelk.css" />
+</head>
+<body>
+
+  <header class="lk-header">
+    <div class="container">
+
+      <!-- Логотип -->
+      <div class="logo">
+        <img src="img/logo.png" alt="Логотип NickyBike" />
+        <div class="logo-text">
+          <span class="company-name">NickyBike</span>
+          <span class="company-desc">прокат электровелосипедов</span>
+        </div>
+      </div>
+
+      <!-- Навигация (desktop) -->
+      <nav class="lk-nav">
+        <a href="#">Баланс</a>
+        <a href="#">Оплата</a>
+        <a href="#">Аренда</a>
+        <a href="#">История зачислений</a>
+      </nav>
+
+      <!-- (mobile) -->
+      <div class="lk-actions">
+        <div class="lk-profile">
+          <img src="img/user.png" alt="Профиль" />
+        </div> 
+        <button class="lk-menu-button" id="menu-toggle" aria-label="Открыть меню">
+          <img src="img/menu.png" alt="Меню" style="height: 40px; width: 40px;" />
+        </button>
+      </div>
+    </div>
+    
+    <!-- Кнопка закрытия -->
+<div class="mobile-nav-overlay" id="mobile-overlay">
+  <div class="mobile-nav" id="mobile-menu">
+    <div class="mobile-nav__header">
+      <div class="mobile-nav__logo">
+        <img src="img/logo.png" width="50" />
+        <div>
+          <div class="company-name">NickyBike</div>
+          <div class="company-desc">прокат электровелосипедов</div>
+        </div>
+      </div>
+      <button class="mobile-nav__close" id="menu-close">✕</button>
+    </div>
+
+    <!-- Меню -->
+    <nav class="mobile-nav__links">
+      <a href="#">Баланс</a>
+      <a href="#">Оплата</a>
+      <a href="#">Аренда</a>
+      <a href="#">Стоимость</a>
+    </nav>
+    <!-- Кнопка "Личный кабинет" -->
+<div class="mobile-btn">
+  <img src="img/user.png" alt="Профиль" class="mobile-btn__icon">
+  <span>Личный кабинет</span>
+</div>
+
+<!-- Соцсети -->
+<div class="mobile-socials">
+  <img src="img/telegram.png" alt="Telegram">
+  <img src="img/whatsapp.png" alt="WhatsApp">
+</div>
+
+<!-- Телефон -->
+<div class="mobile-phone">
+  <span>+7 (995) 968‑25‑17</span>
+</div>
+
+<!-- Адрес и график -->
+<div class="mobile-info">
+  <div class="info-block">
+    <p>График работы:<br>Ежедневно 10:00 – 20:00</p>
+    <p>г. Брянск,<br>ул. Красноармейская, 39</p>
+  </div>
+ </div>
+  </div>
+</div>
+
+
+  <!-- =================== БЛОК «АККАУНТ» =================== -->
+<section class="account-block">
+  <h2 class="account-title">Аккаунт</h2>
+  <div class="account-card">
+    <p><span class="label">Номер аккаунта:</span> <span class="value" data-field="account_id">55</span></p>
+    <p><span class="label">ФИО:</span> <span class="value" data-field="full_name">Шумеев Дмитрий Вадимович</span></p>
+    <p><span class="label">Адрес:</span> <span class="value" data-field="address">Обл. Брянская р‑н Красногорский пгт. Красная Гора д. 26</span></p>
+    <p><span class="label">Телефон:</span> <span class="value" data-field="phone">+7 999 999 99 99</span></p>
+    <p><span class="label">Почта:</span> <span class="value" data-field="email">noreply@nb.ru</span></p>
+  </div>
+</section>
+
+<section class="balance-block">
+  <p class="balance-label">
+    Ваш баланс: <span id="balance-value" class="balance-value" data-field="balance">0 ₽</span>
+  </p>
+</section>
+
+<section class="payment-block">
+  <h2 class="payment-title">Оплата</h2>
+
+  <div class="payment-amount">
+    <label for="payment-input-amount">Введите сумму пополнения (в руб.)</label>
+    <input type="number" id="payment-input-amount" value="100" min="1" step="1"><br>
+  </div>
+
+  <div class="payment-methods">
+    <div class="payment-item" id="tinkoff-payment-item"><img src="img/tinkoff.png"/></div>
+    <div class="payment-item"><img src="img/mirpay.png"/></div>
+    <div class="payment-item"><img src="img/gpay.png"/></div>
+    <div class="payment-item"><img src="img/cards.png"/></div>
+  </div> 
+  <div id="tinkoff-iframe-container">
+  </div>
+</section>
+
+<!-- ===== ИСТОРИЯ ЗАЧИСЛЕНИЙ ===== -->
+<section class="history-block">
+  <h2 class="history-title">История зачислений</h2>
+
+  <div class="history-columns">
+    <ul class="history-col" id="history-left"></ul>
+    <ul class="history-col right" id="history-right"></ul>
+  </div>
+</section>
+
+<!-- ===== АРЕНДА ===== -->
+<section id="rent-block" class="rent-block">
+  <h2 class="rent-title">Аренда</h2>
+  <div class="rent-columns" id="rent-columns">
+  </div>
+</section>
+
+<script src="js/main.js"></script>
+</body>
+  
+<footer class="footer">
+  <!-- Верхняя строка -->
+  <div class="footer__top">
+    <!-- Логотип + название -->
+    <div class="footer__brand">
+      <div class="brand__logo">
+        <img src="img/logo.png" alt="NickyBike" width="78" height="77">
+      </div>
+      <div class="brand__title">
+  <div class="brand__name">NickyBike</div>
+  <div class="brand__subtitle">прокат электровелосипедов</div>
+</div>
+
+    </div>
+
+    <!-- Меню -->
+    <nav class="footer__nav">
+      <a href="#">Тест-драйв</a>
+      <a href="#">Стоимость</a>
+      <a href="#">Выкуп</a>
+      <a href="#">Вопросы</a>
+    </nav>
+
+    <!-- Кнопка -->
+    <a href="#" class="footer__cta">Оставить заявку</a>
+
+    <!-- Аватар -->
+    <div class="footer__avatar">
+      <img src="img/user.png" alt="Avatar">
+    </div>
+  </div>
+
+  <!-- Нижняя строка -->
+  <div class="footer__bottom">
+    <!-- Номер + адрес -->
+    <div class="footer__contacts">
+      <a class="contacts__phone" href="tel:+79959682517">+7 (995) 968‑25‑17</a>
+      <div class="contacts__info">
+        <div class="contacts__address">
+          г. Брянск,<br>ул. Красноармейская, 39
+        </div>
+        <a class="contacts__link" href="#">Политика конфиденциальности</a>
+      </div>
+    </div>
+
+    <!-- График работы -->
+    <div class="footer__schedule">
+      <p>График работы:<br>Ежедневно 10:00 – 20:00</p>
+      <a class="schedule__link" href="#">Правила использования сайта</a>
+    </div>
+
+    <!-- Соцсети -->
+   <div class="footer__social">
+  <img src="img/telegram.png" alt="Telegram" class="social-icon">
+  <img src="img/whatsapp.png" alt="WhatsApp" class="social-icon">
+</div>
+
+  </div>
+</footer>
+
+<script>
+  const menuBtn    = document.getElementById('menu-toggle');
+  const closeBtn   = document.getElementById('menu-close');
+  const overlay    = document.getElementById('mobile-overlay');
+
+  menuBtn?.addEventListener('click', () => {
+    overlay.classList.add('active');
+  });
+
+  closeBtn?.addEventListener('click', () => {
+    overlay.classList.remove('active');
+  });
+  // JavaScript для загрузки данных профиля аккаунта и проверки авторизации!
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchProfileData();
+    fetchBalanceData();
+    fetchHistoryData();
+    fetchRentData();
+  });
+  // Функция для загрузки данных профиля!
+  function fetchProfileData() {
+    fetch('profile.php')
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          window.location.href = 'regin.html'; // !-ПЕРЕНАПРАВЛЕНИЕ НЕАВТОРИЗОВАННЫХ!
+        } else {
+          document.querySelector('[data-field="account_id"]').textContent = data.account_id || 'N/A';
+          document.querySelector('[data-field="full_name"]').textContent = data.full_name || 'Не указано';
+          document.querySelector('[data-field="address"]').textContent = data.address || 'Не указан';
+          document.querySelector('[data-field="phone"]').textContent = data.phone || 'Не указан';
+          document.querySelector('[data-field="email"]').textContent = data.email || 'Не указан';
+        }
+      })
+  }
+  // Функция для загрузки данных баланса!
+  function fetchBalanceData() {
+    fetch('balance.php')
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+            document.getElementById('balance-value').textContent = `0 ₽`;
+            console.error('Ошибка загрузки баланса:', data.error);
+        } else {
+            document.getElementById('balance-value').textContent = `${data.amount} ₽`;
+        }
+      })
+      .catch(error => {
+        console.error('Ошибка при загрузке баланса:', error);
+        document.getElementById('balance-value').textContent = '0 ₽ (Ошибка загрузки)';
+      });
+  }
+  // Функция для загрузки истории зачислений!
+  function fetchHistoryData() {
+    fetch('history.php')
+      .then(response => response.json())
+      .then(data => {
+        const historyLeft = document.getElementById('history-left');
+        const historyRight = document.getElementById('history-right');
+        historyLeft.innerHTML = '';
+        historyRight.innerHTML = '';
+
+        if (data.error) {
+            historyLeft.innerHTML = `<li class="history-item error">${data.error}</li>`;
+            return;
+        }
+        
+        if (data.length === 0) {
+            historyLeft.innerHTML = `<li class="history-item">История не найдена</li>`;
+            return;
+        }
+
+        data.forEach((item, index) => {
+          const li = document.createElement('li');
+          li.className = 'history-item';
+          li.innerHTML = `<span>${item.amount}</span> <span>${item.date}</span>`;
+          if (index % 2 === 0) {
+            historyLeft.appendChild(li);
+          } else {
+            historyRight.appendChild(li);
+          }
+        });
+      })
+      .catch(error => {
+        console.error('Ошибка при загрузке истории зачислений:', error);
+        document.getElementById('history-left').innerHTML = `<li class="history-item error">Ошибка загрузки истории</li>`;
+      });
+  }
+  // Функция для загрузки данных аренды!
+  function fetchRentData() {
+    fetch('rent.php')
+      .then(response => response.json())
+      .then(data => {
+        const rentColumns = document.getElementById('rent-columns');
+        rentColumns.innerHTML = '';
+
+        if (data.error) {
+            rentColumns.innerHTML = `<p class="error-message">${data.error}</p>`;
+            return;
+        }
+
+        if (data.length === 0) {
+            rentColumns.innerHTML = `<p class="no-data">Текущей аренды не найдено.</p>`;
+            return;
+        }
+
+        data.forEach(group => {
+            const groupDiv = document.createElement('div');
+            groupDiv.className = 'rent-group';
+            groupDiv.innerHTML = `
+                <p class="rent-duration">${group.duration}</p>
+                <p class="rent-tariff">${group.tariff}₽</p>
+                <ul class="rent-items">
+                    ${group.items.map(item => `<li>${item[0]}</li>`).join('')}
+                </ul>
+            `;
+            rentColumns.appendChild(groupDiv);
+        });
+      })
+      .catch(error => {
+        console.error('Ошибка при загрузке данных аренды:', error);
+        document.getElementById('rent-columns').innerHTML = `<p class="error-message">Ошибка загрузки данных аренды.</p>`;
+      });
+  }
+</script>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NickyBike | Личный кабинет</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-rectangle">
+            <div class="container">
+
+                <div class="logo">
+                    <img src="img/logo.png" alt="Логотип NickyBike" />
+                    <div class="logo-text">
+                        <span class="company-name">NickyBike</span>
+                        <span class="company-desc">прокат электровелосипедов</span>
+                    </div>
+                </div>
+
+                <nav class="nav">
+                    <a href="#">Тест-драйв</a>
+                    <a href="#">Стоимость</a>
+                    <a href="#">Выкуп</a>
+                    <a href="#">Вопросы</a>
+                </nav>
+
+                <div class="actions">
+                    <div class="request-button">Оставить заявку</div>
+                    <div class="profile" id="header-profile-btn">
+                        <img src="img/user.png" alt="Профиль" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+    
+    <div class="mobile-nav-overlay" id="mobile-overlay">
+        <div class="mobile-nav" id="mobile-menu">
+            <div class="mobile-nav__header">
+                <div class="mobile-nav__logo">
+                    <img src="img/logo.png" width="50" />
+                    <div>
+                        <div class="company-name">NickyBike</div>
+                        <div class="company-desc">прокат электровелосипедов</div>
+                    </div>
+                </div>
+                <button class="mobile-nav__close" id="menu-close">✕</button>
+            </div>
+
+            <nav class="mobile-nav__links">
+                <a href="#">Тест-драйв</a>
+                <a href="#">Стоимость</a>
+                <a href="#">Выкуп</a>
+                <a href="#">Вопросы</a>
+            </nav>
+            <div class="mobile-btn" id="mobile-profile-btn">
+                <img src="img/user.png" alt="Профиль" class="mobile-btn__icon">
+                <span>Личный кабинет</span>
+            </div>
+
+            <div class="mobile-socials">
+                <img src="img/telegram.png" alt="Telegram">
+                <img src="img/whatsapp.png" alt="WhatsApp">
+            </div>
+
+            <div class="mobile-phone">
+                <span>+7 (995) 968‑25‑17</span>
+            </div>
+
+            <div class="mobile-info">
+                <div class="info-block">
+                    <p>График работы:<br>Ежедневно 10:00 – 20:00</p>
+                    <p>г. Брянск,<br>ул. Красноармейская, 39</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div id="request-modal" class="modal">
+    <div class="modal__overlay"></div>
+
+    <div class="modal__content">
+
+        <form id="smsForm" class="step active">
+            <h2 class="modal__title">Введите номер телефона</h2>
+            <p class="modal__subtitle">чтобы оставить заявку</p>
+
+            <input
+                type="tel"
+                name="phone"
+                id="phoneInput"
+                class="modal__input"
+                placeholder="+7 999 999 99 99"
+                required
+            />
+
+            <button type="submit" class="modal__btn">Получить код</button>
+
+            <p class="modal__info-text">
+                Вводя номер телефона Вы соглашаетесь с
+                <a href="#">политикой конфиденциальности</a> и на
+                <a href="#">обработку персональных данных</a>
+            </p>
+
+            <div id="message" class="message"></div>
+        </form>
+
+        <form id="codeForm" class="step">
+            <h2 class="modal__title">Введите смс код</h2>
+
+            <p class="modal__desc">
+                SMS с кодом отправлено. Если не получите сообщение в течение 2 минут,
+                вам позвонит наш робот. Последние 4 цифры номера будут кодом<br>
+                 для входа.Не нужно отвечать на звонок.
+            </p>
+
+            <div class="code-boxes">
+                <input class="code-box" type="text" maxlength="1" inputmode="numeric" />
+                <input class="code-box" type="text" maxlength="1" inputmode="numeric" />
+                <input class="code-box" type="text" maxlength="1" inputmode="numeric" />
+                <input class="code-box" type="text" maxlength="1" inputmode="numeric" />
+            </div>
+
+
+            <input type="hidden" name="code" id="hiddenCode" />
+
+            <button type="submit" class="modal__btn">Подтвердить</button>
+
+            <div id="codeMessage" class="message"></div>
+        </form>
+
+    </div>
+</div>
+
+<div id="profile-modal" class="modal">
+    <div class="modal__overlay"></div>
+
+    <div class="modal__content">
+        <button class="modal__close" id="profileModalCloseBtn">✕</button>
+
+        <form id="smsFormProfile" class="step active">
+            <h2 class="modal__title">Введите номер телефона</h2>
+            <p class="modal__subtitle">зарегистрированного пользователя<br> для входа в личный кабинет</p>
+
+            <input type="tel" id="phoneInputProfile"
+                class="modal__input" placeholder="+7 999 999 99 99" required />
+
+            <button type="submit" class="modal__btn">Получить код</button>
+
+            <p class="modal__info-text">
+                Вводя номер телефона Вы соглашаетесь с
+                <a href="#">политикой конфиденциальности</a> и на
+                <a href="#">обработку персональных данных</a>
+            </p>
+
+            <div id="messageProfile" class="message"></div>
+        </form>
+
+        <form id="codeFormProfile" class="step">
+            <h2 class="modal__title">Введите смс код</h2>
+
+            <p class="modal__desc">
+                SMS с кодом отправлено. Если не получите сообщение в течение 2 минут,
+                вам позвонит робот. Последние 4 цифры номера — это код для входа.
+            </p>
+
+            <div id="callTimerInfoProfile" class="timer hidden">
+                Если код не пришел, мы отправим его звонком через: <span id="callTimerProfile">120</span> сек.
+            </div>
+
+            <div class="code-boxes">
+                <input class="code-box" type="text" maxlength="1" inputmode="numeric">
+                <input class="code-box" type="text" maxlength="1" inputmode="numeric">
+                <input class="code-box" type="text" maxlength="1" inputmode="numeric">
+                <input class="code-box" type="text" maxlength="1" inputmode="numeric">
+            </div>
+
+            <input type="hidden" id="hiddenCodeProfile">
+
+            <button type="submit" class="modal__btn">Подтвердить</button>
+            <button type="button" id="resendCodeProfile" class="modal__btn modal__btn--secondary">Отправить SMS повторно</button>
+            <button type="button" id="sendCallButtonProfile" class="modal__btn modal__btn--secondary call-button hidden">Отправить код звонком</button>
+            <div id="codeMessageProfile" class="message"></div>
+        </form>
+        <div id="notRegisteredStep" class="step">
+            <h2 class="notreg__title">Пользователь с таким<br>номером телефона не зарегистрирован!</h2>
+            <p class="notreg__subtitle">Оставьте заявку на получение информации<br>об услугах NickyBike</p>
+
+            <button class="modal__btn notreg__btn" onclick="closeProfileModal(); document.querySelector('.request-button').click();">
+                Оставить заявку
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<section class="rent-block">
+    <div class="rent-inner">
+        <div class="rent-content">
+            <h2 class="rent-title">АРЕНДА<br>ЭЛЕТРОВЕЛОВ<br>NICKYBIKE</h2>
+            <p class="rent-subtitle">
+            Арендуй самые надёжные модели
+            электровелосипедов от NickyBike и
+            увеличь свой доход в 2 раза!
+            </p>
+            <div class="rent-buttons">
+                <button class="rent-main-btn" data-lead="Взять в аренду">Взять в аренду</button>
+                <div class="rent-socials">
+                    <img src="img/telegram.png" alt="Telegram" />
+                    <img src="img/whatsapp.png" alt="WhatsApp" />
+                </div>
+            </div>
+            <div class="rent-features">
+                <div class="feature">
+                    <img src="img/right.png" alt="Иконка" />
+                    <span>Увеличение дохода<br>курьеров в 2 раза.</span>
+                </div>
+                <div class="feature">
+                    <img src="img/calendar.png" alt="Иконка" />
+                    <span>Аренда от 285<br>руб./день</span>
+                </div>
+                <div class="feature">
+                    <img src="img/driver-license.png" alt="Иконка" />
+                    <span>Нет прав? Они и не<br>нужны!</span>
+                </div>
+            </div>
+        </div>
+        <div class="rent-bike">
+            <img src="img/IMG_3010.png" alt="Электробайк" />
+        </div>
+    </div>
+</section>
+
+<h2 class="tariffs-title">ТАРИФЫ</h2>
+<section class="tariffs">
+    <div class="tariff-card">
+        <h3 class="tariff-title">Тест-драйв<br>LITE</h3>
+        <div class="tariff-period">аренда на один день<br>БЕСПЛАТНО*</div>
+        <div class="tariff-note">*нужны только паспорт и залог</div>
+        <div class="tariff-price-label">Цена:</div>
+        <div class="tariff-price">0 рублей</div>
+        <button class="tariff-btn"data-lead="Тариф - Тест-драйв Lite">Взять в аренду</button>
+    </div>
+
+    <div class="tariff-card">
+        <h3 class="tariff-title">Тест-драйв<br>FULL</h3>
+        <div class="tariff-period">2 недели*</div>
+        <div class="tariff-note">* 1 день аренды 285 рублей<br>​ </div>
+        <div class="tariff-price-label">Цена:</div>
+        <div class="tariff-price">4 000 рублей</div>
+        <button class="tariff-btn"data-lead="Тариф - Тест-драйв Full">Взять в аренду</button>
+    </div>
+
+    <div class="tariff-card">
+        <h3 class="tariff-title2">Неделя</h3>
+        <div class="tariff-period">1 неделя</div>
+        <div class="tariff-note">​<br>​</div>
+        <div class="tariff-price-label">Цена:</div>
+        <div class="tariff-price">4 000 рублей</div>
+        <button class="tariff-btn"data-lead="Тариф - Неделя">Взять в аренду</button>
+    </div>
+
+    <div class="tariff-card">
+        <h3 class="tariff-title2">Месяц</h3>
+        <div class="tariff-period">1 месяц</div>
+        <div class="tariff-note">​<br>​</div>
+        <div class="tariff-price-label">Цена:</div>
+        <div class="tariff-price">13 000 рублей</div>
+        <button class="tariff-btn"data-lead="Тариф - Месяц">Взять в аренду</button>
+    </div>
+</section>
+
+<h2 class="tariffs-title">ВЫКУП </h2>
+    <h3 class="buyout-mini">NickyBike можно арендовать с возможностью выкупа. </h3>
+<section class="buyout-block">
+
+    <div class="buyout-row">
+        <span class="buyout-label">Срок:</span>
+        <button id="periodBtn" class="buyout-pill pill-select">
+            <span id="periodText">6 месяцев</span>
+            <span class="star">✦</span>
+        </button>
+    </div>
+
+    <div class="buyout-row">
+        <span class="buyout-label">Предоплата:</span>
+        <div class="buyout-pill">50 000 ₽</div>
+    </div>
+
+    <div class="buyout-row">
+        <span class="buyout-label">Итог:</span>
+        <div id="totalText" class="buyout-pill">6 667₽/месяц</div>
+    </div>
+
+    <button class="buyout-main-btn">Арендовать с выкупом</button>
+
+    <div id="periodMenu" class="period-menu">
+        <div data-value="6" class="option active"data-lead="Выкуп 6 мес.">6 месяцев</div>
+        <div data-value="4" class="option"data-lead="Выкуп 4 мес.">4 месяца</div>
+        <div data-value="2" class="option"data-lead="Выкуп 2 мес.">2 месяца</div>
+        <button id="menuClose" class="menu-close">✕</button>
+    </div>
+
+</section>
+
+<h2 class="tariffs-title">ТЕСТ-ДРАЙВ </h2>
+<section class="testdrive-wrapper">
+    <div class="testdrive-content">
+        <div class="testdrive-map">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9552.003326225087!2d34.3513298!3d53.2357614!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x412d58f8bc92762b%3A0x4d4065789134c61a!2z0YPQuy4g0JrRgNCw0YHQvdC-0LDRgNC80LXQudGB0LrQsNGPLCAzOSwg0JHRgNGP0L3RgdC6LCDQkdGA0Y_QvdGB0LrQsNGPINC-0LHQuy4sINCg0L7RgdGB0LjRjywgMjQxMDUw!5e0!3m2!1sru!2sde!4v1751761723130!5m2!1sru!2sde"
+                width="100%"
+                height="100%"
+                style="border:0; border-radius: 32px;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+        </div>
+        <div class="testdrive-info">
+            <h3>ЗАПИСАТЬСЯ НА ТЕСТ-ДРАЙВ</h3>
+            <a href="tel:+79959682517" class="testdrive-phone">+79959682517</a>
+            <p class="testdrive-address">ул. Красноармейская, 39</p>
+            <button class="request-button2" data-lead="Запись на Тест-драйв">Оставить заявку</button>
+
+        </div>
+    </div>
+</section>
+
+<div id="lead-modal" class="lead-modal">
+    <div class="lead-overlay"></div>
+
+    <div class="lead-window">
+        <button class="lead-close">✕</button>
+
+        <h2 class="lead-title">ОСТАВИТЬ ЗАЯВКУ</h2>
+
+        <div class="lead-social">
+            <p class="lead-social-title">Напишите нам в социальные сети</p>
+            <div class="lead-social-buttons">
+                <span class="circle-bg"></span>
+                <a href="#" class="social-btn tg"><img src="img/telegram1.png" alt>Telegram</a>
+                <a href="#" class="social-btn wa"><img src="img/whatsapp.png" alt>Whatsapp</a>
+            </div>
+        </div>
+
+        <div class="lead-divider">или</div>
+
+        <form id="leadForm" class="lead-form">
+            <p class="lead-form-title">Оставьте заявку</p>
+            <input name="name" placeholder="Ваше имя" required>
+            <input name="phone" placeholder="+7 (999) 999-99-99" required>
+            <input type="hidden" name="source" id="leadSource">
+            <button type="submit" class="lead-submit">Оставить заявку</button>
+            <p class="lead-terms">
+                Нажимая на кнопку Вы соглашаетесь с
+                <a href="/privacy" target="_blank">политикой конфиденциальности</a>
+                и на <a href="/data" target="_blank">обработку персональных данных</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const modal   = document.getElementById('lead-modal');
+    const overlay = modal.querySelector('.lead-overlay');
+    const closeBt = modal.querySelector('.lead-close');
+    const form    = document.getElementById('leadForm');
+    const sourceF = document.getElementById('leadSource');
+
+    /* ───── ОТКРЫТИЕ ───── */
+    document.querySelectorAll('[data-lead]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            sourceF.value = btn.dataset.lead;         // метка источника
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    /* ───── ЗАКРЫТИЕ ───── */
+    [overlay, closeBt].forEach(el => el.addEventListener('click', closeModal));
+    function closeModal(){
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        form.reset();
+    }
+
+    /* ───── ОТПРАВКА ───── */
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+
+        const fd = new FormData(form);               // name, phone, source
+
+        fetch('/ajax/send_lead.php', {         
+            method : 'POST',
+            body   : fd
+        })
+        .then(r => r.json())
+        .then(d => {
+            if (d.success){
+                alert('Спасибо! Заявка отправлена');    // заглушка-уведомление
+                closeModal();
+            } else {
+                alert('Ошибка: ' + d.error);
+            }
+        })
+        .catch(() => alert('Ошибка сети, попробуйте ещё раз'));
+    });
+
+});   // DOMContentLoaded
+</script>
+<script src="js/request-modal.js"></script>
+<script src="js/profile-modal.js"></script>
+<script src="js/srok.js"></script>
+</body>
+</html>
